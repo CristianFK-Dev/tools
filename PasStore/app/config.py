@@ -1,3 +1,6 @@
+import os
+import sys
+
 THEMES = {
     "Light": {
         "bg": "#f0f0f0", "fg": "black",
@@ -20,4 +23,13 @@ THEMES = {
     }
 }
 
-DB_NAME = "mis_passwords.db"
+# Determinamos el directorio base del proyecto
+if getattr(sys, 'frozen', False):
+    # Si es un ejecutable (PyInstaller)
+    BASE_DIR = os.path.dirname(sys.executable)
+else:
+    # Si es ejecutando como script (.py)
+    # app/config.py -> app -> PasStore
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+DB_NAME = os.path.join(BASE_DIR, "mis_passwords.db")
